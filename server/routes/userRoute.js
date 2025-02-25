@@ -18,10 +18,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/postUserDetail' , async (req,res) => {
+router.post('/postUserDetail' , upload.single("image"), async (req,res) => {
     
     // const detail = req.body
-    console.log(req.file);
+    // console.log(req.body);
 
     const userDetails = new user ({
         firstName : req.body.firstName,
@@ -29,7 +29,7 @@ router.post('/postUserDetail' , async (req,res) => {
         email : req.body.email,
         number : req.body.number,
         place : req.body.place,
-        image : req.body.image,
+        image : req.file.filename,
     })
     await userDetails.save()
     res.status(201).json({message : "Data Saved", userDetails})

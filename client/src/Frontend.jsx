@@ -51,11 +51,11 @@ const Frontend = () => {
         
         const dataF = new FormData()
         dataF.append("firstName", data.firstName)
-        // dataF.append("lastName", data.lastName)
-        // dataF.append("email", data.email)
-        // dataF.append("number", data.number)
-        // dataF.append("place", data.place)
-        // dataF.append("image", data.image)
+        dataF.append("lastName", data.lastName)
+        dataF.append("email", data.email)
+        dataF.append("number", data.number)
+        dataF.append("place", data.place)
+        dataF.append("image", data.image)
         console.log({...dataF.entries()});
         console.log(dataF);
 
