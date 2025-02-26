@@ -17,7 +17,14 @@ const Frontend = () => {
         place: "",
         image: null,
     })
+
     const [imgFile, setImgFile] = useState(null)
+
+    const [profiles, setProfiles] = useState([
+        { name: "Athul Rup", email: "@example.com", number: "0000000000", image: profile },
+        { name: "Jia", email: "@example.com", number: "0000000000", image: profile },
+        { name: "Jane", email: "@example.com", number: "0000000000", image: profile }
+    ])
 
     let API = 'http://localhost:5000/api/'
 
@@ -32,23 +39,23 @@ const Frontend = () => {
         //     }))
         // } else {
 
-            setData((prevData) => ({
-                ...prevData, [name]: value
-            }))
-    //     }
+        setData((prevData) => ({
+            ...prevData, [name]: value
+        }))
+        //     }
     }
 
     const handleFileChange = (e) => {
         setData((prevData) => ({
-            ...prevData, image : e.target.files[0]
+            ...prevData, image: e.target.files[0]
         }))
-        
+
     }
-    
+
     const handleSubmit = async (e) => {
         // e.preventDefault()
-        
-        
+
+
         const dataF = new FormData()
         dataF.append("firstName", data.firstName)
         dataF.append("lastName", data.lastName)
@@ -56,23 +63,23 @@ const Frontend = () => {
         dataF.append("number", data.number)
         dataF.append("place", data.place)
         dataF.append("image", data.image)
-        console.log({...dataF.entries()});
+        console.log({ ...dataF.entries() });
         console.log(dataF);
 
         try {
             let response = await axios.post(`${API}postUserDetail`, dataF, {
-                headers : {"Content-Type":"multipart/form-data"}
+                headers: { "Content-Type": "multipart/form-data" }
             })
             console.log(response, "RESPONSE of Submit");
 
-            // setData({
-            //     firstName: "",
-            //     lastName: "",
-            //     email: "",
-            //     number: "",
-            //     place: "",
-            //     image: null,
-            // })
+            setData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                number: "",
+                place: "",
+                image: null,
+            })
         } catch (error) {
             console.log(error, "ERROR in Submit");
         }
@@ -151,12 +158,26 @@ const Frontend = () => {
                     </Col>
 
 
-                    <Col md={6} className="p-4 border rounded d-flex align-items-center justify-content-center">
-                        {/* <h5 className="text-muted">None</h5> */}
+                    {/* <Col md={6} className="p-4 border rounded d-flex align-items-center justify-content-center">
+                        { <h5 className="text-muted">User Profiles</h5> }
                         <Col xs={6} md={4}>
           <Image src={profile} roundedCircle className='border border-primary'/>
-        </Col>
-        {/* <img src=".assets" alt="not found" className='border border-success'/> */}
+        </Col> */}
+                    {/* <img src=".assets" alt="not found" className='border border-success'/> */}
+
+                    <Col md={6} className="p-4 border rounded">
+                        <h3 className="mb-4">User Profiles</h3>
+                        {profiles.map((profile, index) => (
+                            <div key={index} className="d-flex align-items-center mb-3 border p-2 rounded">
+                                <Image src={profile.image} roundedCircle width={60} height={60} className='border me-3' />
+                                <div>
+                                    <h5 className="mb-1">{profile.name}</h5>
+                                    <p className="mb-1">{profile.email}</p>
+                                    <p className="mb-0">{profile.number}</p>
+                                </div>
+                            </div>
+                        ))}
+
                     </Col>
                 </Row>
             </Container>
