@@ -126,7 +126,7 @@ const Frontend = () => {
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Number</Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="number"
                                     name='number'
                                     placeholder="Enter your Number"
                                     value={data.number}
